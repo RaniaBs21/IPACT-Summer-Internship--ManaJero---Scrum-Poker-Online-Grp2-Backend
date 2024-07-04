@@ -1,0 +1,24 @@
+package com.example.manajeroback.services;
+
+import com.example.manajeroback.entities.Demo;
+import com.example.manajeroback.repositories.ApiRepository;
+import com.example.manajeroback.repositories.DemoRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@AllArgsConstructor
+public class DemoServiceImpl implements IDemoService{
+    DemoRepository demoRepository;
+    @Override
+    public Demo addDemo(Demo demo) {
+        return demoRepository.save(demo);
+    }
+
+    @Override
+    public List<Demo> retreiveDemo() {
+        return demoRepository.findAll();
+    }
+}
