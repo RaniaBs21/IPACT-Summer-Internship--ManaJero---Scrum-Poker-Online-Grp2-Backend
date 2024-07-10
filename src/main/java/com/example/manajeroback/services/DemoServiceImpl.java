@@ -29,6 +29,8 @@ public class DemoServiceImpl implements IDemoService{
         Demo existingDemo = demoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Entity with id " + id + " not found"));
         existingDemo.setDescription(demo.getDescription());
+        existingDemo.setTitle(demo.getTitle());
+
         return demoRepository.save(existingDemo);
     }
 
