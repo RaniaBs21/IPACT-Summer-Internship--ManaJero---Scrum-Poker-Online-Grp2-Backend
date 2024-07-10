@@ -26,7 +26,7 @@ public class LimitsController {
     }
 
     @GetMapping("/getLimits/{id}")
-    public Limits getLimitById(@PathVariable Long id) {
+    public Limits getLimitById(@PathVariable String id) {
         return limitsService.getLimitById(id);
     }
 

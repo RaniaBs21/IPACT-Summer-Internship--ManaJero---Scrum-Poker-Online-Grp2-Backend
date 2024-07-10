@@ -21,11 +21,11 @@ public class LimitsService {
         return limitsRepository.findAll();
     }
 
-    public Limits getLimitById(Long id) {
+    public Limits getLimitById(String id) {
         return limitsRepository.findById(id).orElse(null);
     }
 
-    public void deleteLimits(Long id) {
+    public void deleteLimits(String id) {
         limitsRepository.deleteById(id);
     }
 }

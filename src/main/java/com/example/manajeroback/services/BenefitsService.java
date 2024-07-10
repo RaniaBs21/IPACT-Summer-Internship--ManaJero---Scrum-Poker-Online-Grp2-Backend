@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class BenefitsServiceImpl implements IBenefitsService{
+public class BenefitsService {
 
     BenefitsRepository benefitsRepository;
     public Benefits addBenefits(Benefits benefits) {
@@ -20,11 +20,11 @@ public class BenefitsServiceImpl implements IBenefitsService{
         return benefitsRepository.findAll();
     }
 
-    public Benefits getBenefitById(Long id) {
+    public Benefits getBenefitById(String id) {
         return benefitsRepository.findById(id).orElse(null);
     }
 
-    public void deleteBenefit(Long id) {
+    public void deleteBenefit(String id) {
         benefitsRepository.deleteById(id);
     }
 

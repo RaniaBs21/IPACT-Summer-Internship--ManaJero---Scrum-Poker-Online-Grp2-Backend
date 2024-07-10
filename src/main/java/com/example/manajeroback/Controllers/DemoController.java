@@ -1,8 +1,7 @@
 package com.example.manajeroback.Controllers;
 
 import com.example.manajeroback.entities.Demo;
-import com.example.manajeroback.services.DemoServiceImpl;
-import com.example.manajeroback.services.IDemoService;
+import com.example.manajeroback.services.DemoService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 
 public class DemoController {
-    IDemoService demoService;
+    DemoService demoService;
 
     @GetMapping("/getDemo")
     List<Demo> getDemo(){
@@ -26,7 +25,7 @@ public class DemoController {
         return demoService.addDemo(demo);
     }
     @PutMapping("/updateDemo/{id}")
-    public Demo updateDemo(@PathVariable long id, @RequestBody Demo demo) {
+    public Demo updateDemo(@PathVariable String id, @RequestBody Demo demo) {
         return demoService.updateDemo(demo, id);
 
     }

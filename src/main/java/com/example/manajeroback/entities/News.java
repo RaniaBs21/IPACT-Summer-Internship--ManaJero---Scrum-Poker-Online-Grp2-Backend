@@ -10,20 +10,16 @@ import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
-import java.util.List;
-
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "Benefits")
-
-public class Benefits implements Serializable {
+@Document(collection = "News")
+public class News implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     String id;
-
-     String title;
-     String BenefDescription;
+    String id;
+    String title;
+    String newsDescription;
 }
