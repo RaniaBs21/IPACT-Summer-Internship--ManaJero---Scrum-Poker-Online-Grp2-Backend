@@ -22,7 +22,7 @@ import java.util.List;
 public class Demo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    String id;
 
     String title;
     String description;

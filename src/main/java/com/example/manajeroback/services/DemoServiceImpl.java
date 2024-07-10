@@ -25,10 +25,15 @@ public class DemoServiceImpl implements IDemoService{
     }
 
     @Override
-    public Demo updateDemo (Demo demo, long id) {
+    public Demo updateDemo (Demo demo, String id) {
         Demo existingDemo = demoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Entity with id " + id + " not found"));
         existingDemo.setDescription(demo.getDescription());
         return demoRepository.save(existingDemo);
+    }
+
+    @Override
+    public void deleteDemo(String id) {
+        demoRepository.deleteById(id);
     }
 }

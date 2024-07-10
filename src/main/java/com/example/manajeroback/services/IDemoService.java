@@ -9,5 +9,6 @@ public interface IDemoService {
 
 
     public List<Demo> retreiveDemo();
-    public Demo updateDemo (Demo demo, long id);
+    public Demo updateDemo (Demo demo, String id);
+    void deleteDemo (String id);
 }

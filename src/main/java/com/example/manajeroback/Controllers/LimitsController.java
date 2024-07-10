@@ -26,8 +26,17 @@ public class LimitsController {
     }
 
     @GetMapping("/getLimits/{id}")
-    public Limits getLimitById(@PathVariable Long id) {
+    public Limits getLimitById(@PathVariable String id) {
         return limitsService.getLimitById(id);
     }
+    @DeleteMapping("/deletelimit/{id}")
+    public void deletelimit(@PathVariable String id ){
+        limitsService.deleteLimits(id);
+    }
 
+    @PutMapping("/updateLimit/{id}")
+    public Limits updateBenefit(@PathVariable String id, @RequestBody Limits limit) {
+        return limitsService.updateLimit(limit, id);
+
+    }
 }

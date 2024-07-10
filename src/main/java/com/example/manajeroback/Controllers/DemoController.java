@@ -26,8 +26,13 @@ public class DemoController {
         return demoService.addDemo(demo);
     }
     @PutMapping("/updateDemo/{id}")
-    public Demo updateDemo(@PathVariable long id, @RequestBody Demo demo) {
+    public Demo updateDemo(@PathVariable String id, @RequestBody Demo demo) {
         return demoService.updateDemo(demo, id);
 
     }
+    @DeleteMapping("/deletedemo/{id}")
+    public void deletedemo(@PathVariable String id ){
+        demoService.deleteDemo(id);
+    }
+
 }

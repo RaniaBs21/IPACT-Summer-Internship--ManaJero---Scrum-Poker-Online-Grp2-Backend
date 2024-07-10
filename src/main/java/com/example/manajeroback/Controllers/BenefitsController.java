@@ -17,19 +17,28 @@ public class BenefitsController {
 
     @PostMapping("/addBenefits")
     Benefits addBenefits(@RequestBody Benefits benefits) {
-        return  benefitsService.addBenefits(benefits);
+        return benefitsService.addBenefits(benefits);
     }
 
 
     @GetMapping("/getBenefits")
-    List<Benefits> getBenefits(){
+    List<Benefits> getBenefits() {
         return benefitsService.getAllBenefits();
     }
 
     @GetMapping("/getBenefits/{id}")
-    public Benefits getBenefitById(@PathVariable Long id) {
+    public Benefits getBenefitById(@PathVariable String id) {
         return benefitsService.getBenefitById(id);
     }
 
+    @DeleteMapping("/deletebenefit/{id}")
+    public void deletebenefit(@PathVariable String id) {
+        benefitsService.deleteBenefit(id);
+    }
 
+    @PutMapping("/updateBenefit/{id}")
+    public Benefits updateBenefit(@PathVariable String id, @RequestBody Benefits benefit) {
+        return benefitsService.updateBenefit(benefit, id);
+
+    }
 }

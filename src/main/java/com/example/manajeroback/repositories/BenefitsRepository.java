@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 
-public interface BenefitsRepository extends MongoRepository<Benefits, Long> {
+public interface BenefitsRepository extends MongoRepository<Benefits, String> {
 }

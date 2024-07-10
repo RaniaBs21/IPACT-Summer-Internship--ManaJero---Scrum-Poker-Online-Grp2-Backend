@@ -22,8 +22,7 @@ import java.util.List;
 public class Benefits implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-
+    String id;
     String title;
     String BenefDescription;
 }

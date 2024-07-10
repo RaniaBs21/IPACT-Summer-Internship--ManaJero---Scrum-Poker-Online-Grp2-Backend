@@ -20,6 +20,7 @@ import java.io.Serializable;
 public class Limits implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    String id;
+    String title;
     String limitDescription;
 }
