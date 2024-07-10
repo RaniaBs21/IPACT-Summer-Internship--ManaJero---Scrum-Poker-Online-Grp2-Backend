@@ -1,6 +1,5 @@
 package com.example.manajeroback.Controllers;
 
-import com.example.manajeroback.entities.Benefits;
 import com.example.manajeroback.entities.Limits;
 import com.example.manajeroback.services.LimitsService;
 import lombok.AllArgsConstructor;

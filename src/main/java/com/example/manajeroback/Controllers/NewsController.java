@@ -2,9 +2,7 @@ package com.example.manajeroback.Controllers;
 
 
 import com.example.manajeroback.entities.News;
-import com.example.manajeroback.entities.Steps;
 import com.example.manajeroback.services.NewsService;
-import com.example.manajeroback.services.StepService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
