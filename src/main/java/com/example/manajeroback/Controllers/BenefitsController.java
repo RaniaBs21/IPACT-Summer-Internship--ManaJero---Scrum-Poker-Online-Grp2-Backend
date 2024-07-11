@@ -29,5 +29,15 @@ public class BenefitsController {
         return benefitsService.getBenefitById(id);
     }
 
+    @DeleteMapping("/deletebenefit/{id}")
+    public void deletebenefit(@PathVariable String id) {
+        benefitsService.deleteBenefit(id);
+    }
+
+    @PutMapping("/updateBenefit/{id}")
+    public Benefits updateBenefit(@PathVariable String id, @RequestBody Benefits benefit) {
+        return benefitsService.updateBenefit(benefit, id);
+
+    }
 
 }

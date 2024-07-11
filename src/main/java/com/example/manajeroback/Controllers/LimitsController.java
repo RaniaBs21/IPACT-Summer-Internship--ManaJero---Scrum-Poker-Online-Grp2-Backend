@@ -29,4 +29,14 @@ public class LimitsController {
         return limitsService.getLimitById(id);
     }
 
+    @DeleteMapping("/deletelimit/{id}")
+    public void deletelimit(@PathVariable String id ){
+        limitsService.deleteLimits(id);
+    }
+
+    @PutMapping("/updateLimit/{id}")
+    public Limits updateBenefit(@PathVariable String id, @RequestBody Limits limit) {
+        return limitsService.updateLimit(limit, id);
+
+    }
 }

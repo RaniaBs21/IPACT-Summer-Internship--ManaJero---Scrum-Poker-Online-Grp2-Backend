@@ -29,4 +29,9 @@ public class DemoController {
         return demoService.updateDemo(demo, id);
 
     }
+
+    @DeleteMapping("/deletedemo/{id}")
+    public void deletedemo(@PathVariable String id ){
+        demoService.deleteDemo(id);
+    }
 }

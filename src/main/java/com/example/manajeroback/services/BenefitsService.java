@@ -2,6 +2,7 @@ package com.example.manajeroback.services;
 
 import com.example.manajeroback.entities.Benefits;
 import com.example.manajeroback.repositories.BenefitsRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +25,17 @@ public class BenefitsService {
         return benefitsRepository.findById(id).orElse(null);
     }
 
-  /*  public void deleteBenefit(String id) {
+    public void deleteBenefit(String id) {
         benefitsRepository.deleteById(id);
-    }*/
+    }
 
+
+    public Benefits updateBenefit(Benefits benefits, String id) {
+        Benefits existingBenefit = benefitsRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Entity with id " + id + " not found"));
+        existingBenefit.setBenefDescription(benefits.getBenefDescription());
+        existingBenefit.setTitle(benefits.getTitle());
+        return benefitsRepository.save(existingBenefit);
+    }
 
 }
