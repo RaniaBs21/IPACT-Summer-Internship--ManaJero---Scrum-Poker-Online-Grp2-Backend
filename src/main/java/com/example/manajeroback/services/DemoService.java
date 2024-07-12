@@ -27,6 +27,7 @@ public class DemoService {
                 .orElseThrow(() -> new EntityNotFoundException("Entity with id " + id + " not found"));
         existingDemo.setDescription(demo.getDescription());
         existingDemo.setTitle(demo.getTitle());
+        existingDemo.setIntro(demo.getIntro());
 
         return demoRepository.save(existingDemo);
     }
