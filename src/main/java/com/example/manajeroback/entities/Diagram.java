@@ -22,6 +22,6 @@ public class Diagram  implements Serializable {
     String id;
     String stptitle;
     String stpDescription;
-    String test;
+
 
 }
