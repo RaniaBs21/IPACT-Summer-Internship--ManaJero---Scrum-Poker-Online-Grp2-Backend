@@ -10,15 +10,17 @@ import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "Diagram")
-public class Diagram implements Serializable {
+public class Diagram  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     String id;
     String stptitle;
     String stpDescription;
+
 }

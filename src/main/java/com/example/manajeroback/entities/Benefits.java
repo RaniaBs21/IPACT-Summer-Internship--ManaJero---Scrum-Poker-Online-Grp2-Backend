@@ -10,7 +10,7 @@ import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
-import java.util.List;
+
 
 
 @Getter
@@ -22,7 +22,8 @@ import java.util.List;
 public class Benefits implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    String id;
-    String title;
-    String BenefDescription;
+     String id;
+
+     String title;
+     String BenefDescription;
 }

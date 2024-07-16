@@ -1,9 +1,7 @@
 package com.example.manajeroback.services;
 
 import com.example.manajeroback.entities.Diagram;
-import com.example.manajeroback.entities.News;
 import com.example.manajeroback.repositories.DiagramRepository;
-import com.example.manajeroback.repositories.NewsRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

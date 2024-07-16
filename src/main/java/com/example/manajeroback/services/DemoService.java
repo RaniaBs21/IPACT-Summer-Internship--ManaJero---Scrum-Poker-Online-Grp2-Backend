@@ -10,30 +10,29 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class DemoServiceImpl implements IDemoService{
+public class DemoService {
 
     DemoRepository demoRepository;
-    @Override
+
     public Demo addDemo(Demo demo) {
         return demoRepository.save(demo);
     }
-
-    @Override
     public List<Demo> retreiveDemo() {
         return demoRepository.findAll();
     }
 
-    @Override
+
     public Demo updateDemo (Demo demo, String id) {
         Demo existingDemo = demoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Entity with id " + id + " not found"));
         existingDemo.setDescription(demo.getDescription());
         existingDemo.setTitle(demo.getTitle());
+        existingDemo.setIntro(demo.getIntro());
 
         return demoRepository.save(existingDemo);
     }
 
-    @Override
+
     public void deleteDemo(String id) {
         demoRepository.deleteById(id);
     }
