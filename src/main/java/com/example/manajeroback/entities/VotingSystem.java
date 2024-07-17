@@ -1,9 +1,6 @@
 package com.example.manajeroback.entities;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 public enum VotingSystem {
