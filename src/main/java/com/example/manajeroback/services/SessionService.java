@@ -1,7 +1,5 @@
 package com.example.manajeroback.services;
-import com.example.manajeroback.entities.News;
 import com.example.manajeroback.entities.Session;
-import com.example.manajeroback.repositories.NewsRepository;
 import com.example.manajeroback.repositories.SessionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
