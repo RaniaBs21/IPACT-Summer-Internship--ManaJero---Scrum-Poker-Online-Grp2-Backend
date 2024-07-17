@@ -1,0 +1,26 @@
+package com.example.manajeroback.entities;
+
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.io.Serializable;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Document(collection = "Session")
+public class Session implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    String id;
+
+    String name;
+    @Enumerated(EnumType.STRING)
+    VotingSystem votingSystem=VotingSystem.FIBONACCI;
+}
