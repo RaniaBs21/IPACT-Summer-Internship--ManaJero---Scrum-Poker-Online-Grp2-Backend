@@ -1,6 +1,4 @@
 package com.example.manajeroback.Controllers;
-
-import com.example.manajeroback.entities.News;
 import com.example.manajeroback.entities.Session;
 import com.example.manajeroback.services.SessionService;
 import lombok.AllArgsConstructor;
