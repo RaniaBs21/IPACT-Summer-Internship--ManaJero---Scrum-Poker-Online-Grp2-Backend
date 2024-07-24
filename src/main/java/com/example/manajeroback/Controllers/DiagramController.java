@@ -14,7 +14,7 @@ public class DiagramController {
 
 
     @PostMapping("/addDiagram")
-    Diagram addNews(@RequestBody Diagram diagram) {
+    Diagram addDiagram(@RequestBody Diagram diagram) {
         return  diagramService.addDiagram(diagram);
     }
 
