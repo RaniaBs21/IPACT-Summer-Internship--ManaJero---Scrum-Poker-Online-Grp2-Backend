@@ -82,6 +82,11 @@
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
         <!-- Dépendance pour OPEN CSV -->
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>${opencsv.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
