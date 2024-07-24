@@ -24,5 +24,8 @@ public class Issues  implements Serializable {
     String id;
     String issueDescription;
 
+    @DBRef
+    Session session;
+
 
 }

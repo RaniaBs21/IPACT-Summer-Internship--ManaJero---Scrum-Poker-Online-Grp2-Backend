@@ -24,5 +24,6 @@ public class Session implements Serializable {
     String name;
     @Enumerated(EnumType.STRING)
     VotingSystem votingSystem=VotingSystem.FIBONACCI;
-
+    @DBRef
+    List<Issues> issues;
 }

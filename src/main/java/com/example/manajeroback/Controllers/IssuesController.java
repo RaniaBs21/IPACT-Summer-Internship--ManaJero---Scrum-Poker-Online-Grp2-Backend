@@ -11,21 +11,19 @@ import java.util.List;
 @AllArgsConstructor
 public class IssuesController {
     IssuesServices issuesServices;
-
-    @PostMapping("/addIssue")
-    Issues addIssue(@RequestBody Issues issues) {
-        return  issuesServices.addIssues(issues);
-    }
-
+  @PostMapping("/session/{sessionId}")
+  public Issues addIssue(@PathVariable String sessionId, @RequestBody Issues issue) {
+      return issuesServices.addIssue(sessionId, issue);
+  }
 
     @GetMapping("/getIssues")
     List<Issues> getIssues(){
         return issuesServices.getAllIssues();
     }
 
-    @GetMapping("/getIssues/{id}")
-    public Issues getIssuesById(@PathVariable String id) {
-        return issuesServices.getIssueById(id);
+    @GetMapping("/session/{sessionId}")
+    public List<Issues> getIssuesBySessionId(@PathVariable String sessionId) {
+        return issuesServices.getIssuesBySessionId(sessionId);
     }
 
     @PutMapping("/updateIssue/{id}")
@@ -38,4 +36,6 @@ public class IssuesController {
     void deleteIssue(@PathVariable String id) {
         issuesServices.deleteIssues(id);
     }
+
+
 }
