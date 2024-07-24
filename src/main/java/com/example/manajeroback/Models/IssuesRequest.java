@@ -9,5 +9,4 @@ import lombok.*;
 public class IssuesRequest {
     private String description;
     private String platformId;
-
 }

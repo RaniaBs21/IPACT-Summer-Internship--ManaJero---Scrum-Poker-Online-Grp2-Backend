@@ -1,6 +1,4 @@
 package com.example.manajeroback.repositories;
-
-import com.example.manajeroback.entities.Diagram;
 import com.example.manajeroback.entities.Issues;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
