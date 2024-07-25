@@ -23,7 +23,7 @@ public class Issues  implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     String id;
     String issueDescription;
-
+    String issueNumber;
     @DBRef
     Session session;
 

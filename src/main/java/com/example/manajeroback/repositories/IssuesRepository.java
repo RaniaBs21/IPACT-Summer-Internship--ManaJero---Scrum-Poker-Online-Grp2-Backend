@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface IssuesRepository extends MongoRepository<Issues, String> {
     List<Issues> findBySessionId(String sessionId);
+    long countBySessionId(String sessionId);
 }

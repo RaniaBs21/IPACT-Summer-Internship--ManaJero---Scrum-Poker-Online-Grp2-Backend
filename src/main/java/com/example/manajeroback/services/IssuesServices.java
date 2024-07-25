@@ -13,6 +13,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class IssuesServices {
+    private static final String PREFIX = "PP-";
 
     IssuesRepository issuesRepo;
     SessionRepository sessionRepo;
@@ -42,7 +43,13 @@ public class IssuesServices {
     }
     public Issues addIssue(String sessionId, Issues issue) {
         Session session = sessionRepo.findById(sessionId).orElseThrow(() -> new IllegalArgumentException("Invalid session ID"));
+        // Générer un numéro d'issue
+        long count = issuesRepo.countBySessionId(sessionId); // Compte le nombre d'issues pour cette session
+        String issueNumber = PREFIX + (count + 1); // Générer le numéro d'issue
+
+        issue.setIssueNumber(issueNumber); // Définir le numéro d'issue
         issue.setSession(session);
         return issuesRepo.save(issue);
     }
+
 }
