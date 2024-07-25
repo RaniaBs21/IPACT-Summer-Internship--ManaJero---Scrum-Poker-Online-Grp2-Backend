@@ -1,6 +1,5 @@
 package com.example.manajeroback.entities;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,21 +9,18 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "Session")
-public class Session implements Serializable {
+@Document(collection = "Issues")
+public class Issues implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     String id;
-    String name;
-    @Enumerated(EnumType.STRING)
-    VotingSystem votingSystem=VotingSystem.FIBONACCI;
+    String issueDescription;
 
     @DBRef
-    List<Issues> issues;
+    Session session;
+
 }

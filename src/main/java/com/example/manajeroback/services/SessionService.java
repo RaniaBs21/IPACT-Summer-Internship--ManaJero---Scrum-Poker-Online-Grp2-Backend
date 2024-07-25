@@ -1,13 +1,17 @@
 package com.example.manajeroback.services;
 
+import com.example.manajeroback.entities.Issues;
 import com.example.manajeroback.entities.News;
 import com.example.manajeroback.entities.Session;
+import com.example.manajeroback.repositories.IssuesRepository;
 import com.example.manajeroback.repositories.NewsRepository;
 import com.example.manajeroback.repositories.SessionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class SessionService {
@@ -27,5 +31,6 @@ public class SessionService {
     public void deleteSession(String id) {
         sessionRepository.deleteById(id);
     }
+
 
 }
