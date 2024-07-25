@@ -19,6 +19,7 @@ public class Issues implements Serializable {
     @Id
     String id;
     String issueDescription;
+    private String issueNumber;
 
     @DBRef
     Session session;

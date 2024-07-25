@@ -37,7 +37,11 @@ public class SessionController {
         sessionService.deleteSession(id);
     }
 
+    @PutMapping("/updateSession/{id}")
+    public Session updateSession(@PathVariable String id, @RequestBody Session session) {
+        return sessionService.updateSession(session, id);
 
+    }
     }
 
 
