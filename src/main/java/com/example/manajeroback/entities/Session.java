@@ -1,5 +1,6 @@
 package com.example.manajeroback.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +25,7 @@ public class Session implements Serializable {
     String name;
     @Enumerated(EnumType.STRING)
     VotingSystem votingSystem=VotingSystem.FIBONACCI;
+    @JsonIgnore
     @DBRef
     List<Issues> issues;
 }

@@ -1,5 +1,6 @@
 package com.example.manajeroback.Controllers;
 
+import com.example.manajeroback.entities.Limits;
 import com.example.manajeroback.entities.Session;
 import com.example.manajeroback.services.SessionService;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,11 @@ public class SessionController {
     @DeleteMapping("/deleteSession/{id}")
     public void deleteSession(@PathVariable String id ){
         sessionService.deleteSession(id);
+    }
+    @PutMapping("/updateSession/{id}")
+    public Session updateSession(@PathVariable String id, @RequestBody Session session) {
+        return sessionService.updateSession(session, id);
+
     }
 
 }
