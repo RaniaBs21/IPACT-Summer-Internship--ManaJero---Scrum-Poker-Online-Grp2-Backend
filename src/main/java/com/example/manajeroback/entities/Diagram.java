@@ -23,4 +23,9 @@ public class Diagram  implements Serializable {
     String stptitle;
     String stpDescription;
 
+    public Diagram(String stptitle, String stpDescription) {
+        this.stptitle = stptitle;
+        this.stpDescription = stpDescription;
+    }
+
 }

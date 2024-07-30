@@ -23,4 +23,9 @@ public class Steps implements Serializable {
     String id;
     String title;
     String stepDescription;
+
+    public Steps(String title, String stepDescription) {
+        this.title = title;
+        this.stepDescription = stepDescription;
+    }
 }

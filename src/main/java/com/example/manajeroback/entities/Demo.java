@@ -25,6 +25,12 @@ public class Demo implements Serializable {
     String description;
 
 
+    public Demo(String title, String intro, String description) {
+        this.title = title;
+        this.intro = intro;
+        this.description = description;
+    }
+
 }
 
 
