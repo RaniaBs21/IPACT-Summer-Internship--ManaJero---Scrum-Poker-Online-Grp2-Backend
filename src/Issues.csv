@@ -1,0 +1,5 @@
+name;priority;issueDescription;status
+test;LOW;"As a developer/sm/po/admin I can participate in a video conferencing call
+
+";started
+test2;LOW;As a PO I can choose a set of cards at the beginning of a session;started

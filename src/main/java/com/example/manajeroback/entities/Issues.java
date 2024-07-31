@@ -1,18 +1,14 @@
 package com.example.manajeroback.entities;
 
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
-
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
@@ -24,6 +20,7 @@ public class Issues  implements Serializable {
     String id;
     String issueDescription;
     String issueNumber;
+    String name;
     @DBRef
     Session session;
 
