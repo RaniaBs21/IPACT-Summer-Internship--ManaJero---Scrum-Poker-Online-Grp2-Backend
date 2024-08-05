@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class StepsController {
 
-       StepService stepService;
+    StepService stepService;
 
 
     @PostMapping("/addSteps")

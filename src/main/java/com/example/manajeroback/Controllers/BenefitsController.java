@@ -1,23 +1,21 @@
 package com.example.manajeroback.Controllers;
 
 import com.example.manajeroback.entities.Benefits;
+import com.example.manajeroback.services.BenefitsService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import com.example.manajeroback.services.BenefitsService;
-
 
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
 public class BenefitsController {
-     BenefitsService benefitsService;
+
+    BenefitsService benefitsService;
 
     @PostMapping("/addBenefits")
-     Benefits addBenefits(@RequestBody Benefits benefits) {
+    Benefits addBenefits(@RequestBody Benefits benefits) {
         return  benefitsService.addBenefits(benefits);
-
     }
 
 
@@ -41,4 +39,5 @@ public class BenefitsController {
         return benefitsService.updateBenefit(benefit, id);
 
     }
+
 }

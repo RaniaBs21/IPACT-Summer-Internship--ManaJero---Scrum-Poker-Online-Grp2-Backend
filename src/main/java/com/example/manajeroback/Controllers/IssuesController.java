@@ -14,10 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 public class IssuesController {
     IssuesServices issuesServices;
-  @PostMapping("/session/{sessionId}")
-  public Issues addIssue(@PathVariable String sessionId, @RequestBody Issues issue) {
-      return issuesServices.addIssue(sessionId, issue);
-  }
+    @PostMapping("/session/{sessionId}")
+    public Issues addIssue(@PathVariable String sessionId, @RequestBody Issues issue) {
+        return issuesServices.addIssue(sessionId, issue);
+    }
 
     @GetMapping("/getIssues")
     List<Issues> getIssues(){
