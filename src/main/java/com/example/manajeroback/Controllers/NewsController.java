@@ -36,6 +36,7 @@ public class NewsController {
 
     }
 
+
     @DeleteMapping("/deleteNews/{id}")
     void deleteStep(@PathVariable String id) {
         newsService.deleteNews(id);
