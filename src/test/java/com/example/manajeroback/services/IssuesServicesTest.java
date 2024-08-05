@@ -74,7 +74,7 @@ class IssuesServiceTest {
 
         Mockito.when(issuesRepository.findById(issueId)).thenReturn(Optional.of(issue));
 
-        Issues result = issuesService.getIssueById(issueId);
+        Issues result = issuesService.getIssuesById(issueId);
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(issueId, result.getId());

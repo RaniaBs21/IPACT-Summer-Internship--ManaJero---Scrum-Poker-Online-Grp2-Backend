@@ -25,4 +25,6 @@ public class Issues  implements Serializable {
     Session session;
 
 
+    public Issues(String id, String issueDescription, String issueNumber, String name) {
+    }
 }
