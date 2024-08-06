@@ -28,4 +28,7 @@ public class Session implements Serializable {
     @JsonIgnore
     @DBRef
     List<Issues> issues;
+
+    @DBRef
+    List<User> users;
 }

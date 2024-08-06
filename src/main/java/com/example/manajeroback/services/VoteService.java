@@ -17,8 +17,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class VoteService {
 
-    @Autowired
-    private MongoTemplate mongoTemplate;
 
     private VoteRepository voteRepository;
 

@@ -1,6 +1,7 @@
 package com.example.manajeroback.entities;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,22 +10,24 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "Vote")
-public class Vote implements Serializable {
+@Document(collection = "User")
+
+public class User implements Serializable {
     @Id
     String id;
-    String sessionId;
-    String issueId;
-    String vote;
-
+    String name;
+    @JsonIgnore
     @DBRef
-    User user;
+    Session session;
+    @JsonIgnore
+    @DBRef
+    List<Vote> votes;
 
-    public Vote(String id, String sessionId, String issueId, String vote) {
-    }
+
 }
