@@ -13,12 +13,9 @@ public class UserController {
     UserService userService;
 
 
-  /*  @PostMapping("/addUser")
-    User addUser(@RequestBody User user) {
-        return  userService.addUser(user);
-    }*/
 
-    @PostMapping("/addUser/{sessionId}")
+
+    @PostMapping("/session/addUser/{sessionId}")
     public User addIssue(@PathVariable String sessionId, @RequestBody User user) {
         return userService.addUser(sessionId, user);
     }
