@@ -1,14 +1,19 @@
 package com.example.manajeroback.services;
 
+
+
 import com.example.manajeroback.Models.IssuesRequest;
 import com.example.manajeroback.entities.Issues;
+import com.example.manajeroback.entities.IssuesCsvRepresentation;
+import com.example.manajeroback.entities.Session;
 import com.example.manajeroback.repositories.IssuesRepository;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
+import com.example.manajeroback.repositories.SessionRepository;
 import com.opencsv.bean.HeaderColumnNameMappingStrategy;
-import lombok.RequiredArgsConstructor;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,71 +23,70 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
+
 @Service
-@RequiredArgsConstructor
-public class IssuesService {
+@AllArgsConstructor
+public class IssuesServices {
+    private static final String PREFIX = "PP-";
 
-
-    private final IssuesRepository issuesRepository;
-
-//    @Value("${jira.apiToken}")
-//    private String jiraApiToken;
-//
-//    @Value("${jira.email}")
-//    private String jiraUserEmail;
-//
-//    @Value("${azure.apiToken}")
-//    private String AzureApiToken;
-//
-//    @Value("${azure.email}")
-//    private String AzureUserEmail;
-//
-//    @Autowired
-//    private HttpHeaders httpHeaders;
-//
-//    @Autowired
-//    private RestTemplate restTemplate;
-
-
-    public Issues addIssues(Issues Issues) {
-        return issuesRepository.save(Issues);
+    IssuesRepository issuesRepo;
+    SessionRepository sessionRepo;
+    public Issues addIssues(Issues issues) {
+        return issuesRepo.save(issues);
     }
 
-    public Issues addIssuesBySession(Issues Issues, String sesionId) {
-        return issuesRepository.save(Issues);
+    public List<Issues> getAllIssues() {
+        return issuesRepo.findAll();
     }
 
-
-    public Issues updateIssues(Issues Issues) {
-
-        return issuesRepository.save(Issues);
+    public Issues updateIssues (Issues issues, String id) {
+        Issues existingIssue = issuesRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Entity with id " + id + " not found"));
+        existingIssue.setIssueDescription(issues.getIssueDescription());
+        return issuesRepo.save(existingIssue);
     }
-
 
     public void deleteIssues(String id) {
-        issuesRepository.deleteById(id);
+        issuesRepo.deleteById(id);
+    }
 
+    public List<Issues> getIssuesBySessionId(String sessionId) {
+        return issuesRepo.findBySessionId(sessionId);
+    }
+    public Issues addIssue(String sessionId, Issues issue) {
+        Session session = sessionRepo.findById(sessionId).orElseThrow(() -> new IllegalArgumentException("Invalid session ID"));
+        // Générer un numéro d'issue
+        long count = issuesRepo.countBySessionId(sessionId); // Compte le nombre d'issues pour cette session
+        String issueNumber = PREFIX + (count + 1); // Générer le numéro d'issue
+
+        issue.setIssueNumber(issueNumber); // Définir le numéro d'issue
+        issue.setSession(session);
+        return issuesRepo.save(issue);
     }
 
 
+// *******************************   user stories **************************************
+
     public List<Issues> displayUserStories() {
-        return issuesRepository.findAll();
+        return issuesRepo.findAll();
 
     }
 
 
     public Issues getIssuesById(String id) {
-        return issuesRepository.findById(id).orElse(null);
+        return issuesRepo.findById(id).orElse(null);
     }
 
 
     public Integer uploadIssues(MultipartFile file, String sessionId) throws IOException {
         Set<Issues> issues = parseCsv(file);
-        issuesRepository.saveAll(issues);
+        issuesRepo.saveAll(issues);
         return issues.size();
     }
 
-    private Set<Issues> parseCsv(MultipartFile file) throws IOException {
+  private Set<Issues> parseCsv(MultipartFile file) throws IOException {
         try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
             HeaderColumnNameMappingStrategy<IssuesCsvRepresentation> strategy =
                     new HeaderColumnNameMappingStrategy<>();
@@ -97,7 +101,7 @@ public class IssuesService {
                     .stream()
                     .map(csvLine -> Issues.builder()
                                     .name(csvLine.getName())
-                                    .description(csvLine.getDescription())
+                                    .issueDescription(csvLine.getDescription())
 //                            .estimation(csvLine.getEstimation())
 //                            .status(csvLine.getStatus())
 //                            .emittedVotes(csvLine.getEmittedVotes())
@@ -109,7 +113,7 @@ public class IssuesService {
 
     //import Issues from jira to db
     public List<Issues> findBySessionId(String sessionId) {
-        return issuesRepository.findBySessionId(sessionId);
+        return issuesRepo.findBySessionId(sessionId);
     }
 
     public void insertIssues1(List<IssuesRequest> newUserStories, String sessionId) {
@@ -117,10 +121,11 @@ public class IssuesService {
 
         for (var Issues : newUserStories) {
             var us = new Issues();
-            us.setDescription(Issues.getDescription());
-            us.setSessionId(sessionId);
+            us.setIssueDescription(Issues.getDescription());
+            // us.setSessionId(sessionId) ;
             userstories.add(us);
         }
-        issuesRepository.saveAll(userstories);
+        issuesRepo.saveAll(userstories);
     }
+
 }

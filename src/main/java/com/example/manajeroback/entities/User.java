@@ -1,7 +1,7 @@
 package com.example.manajeroback.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,16 +16,18 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "Session")
-public class Session implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    String id;
+@Document(collection = "User")
 
+public class User implements Serializable {
+    @Id
+    String id;
     String name;
-    @Enumerated(EnumType.STRING)
-    VotingSystem votingSystem=VotingSystem.FIBONACCI;
     @JsonIgnore
     @DBRef
-    List<Issues> issues;
+    Session session;
+    @JsonIgnore
+    @DBRef
+    List<Vote> votes;
+
+
 }

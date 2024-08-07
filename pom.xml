@@ -33,7 +33,7 @@
         <json.version>20231013</json.version>
         <common-io.version>2.15.1</common-io.version>
         <opencsv.version>5.9</opencsv.version>
-        </properties>
+    </properties>
     <dependencies>
 
         <!-- Dépendance pour Spring Data JPA -->
@@ -81,7 +81,29 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
-        <!-- Dépendance pour OPEN CSV -->
+        <!-- Dépendance pour junit -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>4.5.1</version> <!-- Assurez-vous d'utiliser la version correcte -->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>4.5.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>5.9</version>
+        </dependency>
         <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>

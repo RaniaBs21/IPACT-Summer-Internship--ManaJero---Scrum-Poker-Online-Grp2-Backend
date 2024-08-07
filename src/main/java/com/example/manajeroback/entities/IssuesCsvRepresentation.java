@@ -1,4 +1,4 @@
-package com.example.manajeroback.services;
+package com.example.manajeroback.entities;
 
 import com.opencsv.bean.CsvBindByName;
 import lombok.*;

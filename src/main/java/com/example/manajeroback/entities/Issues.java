@@ -1,26 +1,28 @@
 package com.example.manajeroback.entities;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
+import java.io.Serializable;
+@Builder
 @Getter
 @Setter
-@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Document(collection = "Issues")
-
-public class Issues {
+public class Issues  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     String id;
-    private String name;
-    private String description;
-    private String sessionId;
+    String issueDescription;
+    String issueNumber;
+    String name;
+    @DBRef
+    Session session;
+
 
 }

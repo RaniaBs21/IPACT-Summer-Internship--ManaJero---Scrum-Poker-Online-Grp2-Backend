@@ -1,6 +1,7 @@
 package com.example.manajeroback.services;
 import com.example.manajeroback.entities.Session;
 import com.example.manajeroback.repositories.SessionRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +25,13 @@ public class SessionService {
     public void deleteSession(String id) {
         sessionRepository.deleteById(id);
     }
+    public Session updateSession(Session session, String id) {
+        Session existingSession = sessionRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Entity with id " + id + " not found"));
+        existingSession.setName(session.getName());
+        existingSession.setVotingSystem(session.getVotingSystem());
+        return sessionRepository.save(existingSession);
+    }
+
 
 }
