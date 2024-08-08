@@ -28,5 +28,15 @@ public class VoteController {
         return ResponseEntity.ok(votes);
     }
 
+   @GetMapping("getaverage")
+    public ResponseEntity<Double> getAverageVote(
+            @RequestParam String sessionId,
+            @RequestParam String issueId) {
+        double averageVote = voteService.calculateAverageVote(sessionId, issueId);
+        return ResponseEntity.ok(averageVote);
+    }
+
+
+
 
 }

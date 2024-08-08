@@ -24,7 +24,10 @@ public class Vote implements Serializable {
 
     @DBRef
     User user;
+    @DBRef
+    Issues issue;
 
     public Vote(String id, String sessionId, String issueId, String vote) {
     }
+
 }
