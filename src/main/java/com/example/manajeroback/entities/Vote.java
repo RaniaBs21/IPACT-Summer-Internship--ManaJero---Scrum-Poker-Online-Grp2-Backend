@@ -17,16 +17,11 @@ import java.io.Serializable;
 @Document(collection = "Vote")
 public class Vote implements Serializable {
     @Id
-    String id;
-    String sessionId;
-    String issueId;
-    String vote;
-
-    @DBRef
-    User user;
-    @DBRef
-    Issues issue;
-
+    private String id;
+    private String sessionId;
+    private String issueId;
+    private String userId;
+    private String vote;
     public Vote(String id, String sessionId, String issueId, String vote) {
     }
 

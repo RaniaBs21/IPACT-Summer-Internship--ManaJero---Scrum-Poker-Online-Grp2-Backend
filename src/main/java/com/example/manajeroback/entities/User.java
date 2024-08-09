@@ -22,6 +22,7 @@ public class User implements Serializable {
     @Id
     String id;
     String name;
+    String email;
     @JsonIgnore
     @DBRef
     Session session;

@@ -34,4 +34,8 @@ public class UserService {
         Session session = sessionOptional.get();
         return userRepository.findBySession(session);
     }
+    public User getUserById(String userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+    }
 }
