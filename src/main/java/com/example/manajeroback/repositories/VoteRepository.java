@@ -9,4 +9,7 @@ import java.util.List;
 @Repository
 public interface VoteRepository extends MongoRepository<Vote, String> {
     List<Vote> findBySessionIdAndIssueId(String sessionId, String issueId);
+
+    // New method to check if a user has already voted
+    List<Vote> findBySessionIdAndIssueIdAndUserId(String sessionId, String issueId, String username);
 }

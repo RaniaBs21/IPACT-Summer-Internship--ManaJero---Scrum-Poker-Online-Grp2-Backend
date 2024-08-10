@@ -1,13 +1,14 @@
 package com.example.manajeroback.services;
 
 
-
 import com.example.manajeroback.Models.IssuesRequest;
 import com.example.manajeroback.entities.Issues;
 import com.example.manajeroback.entities.IssuesCsvRepresentation;
 import com.example.manajeroback.entities.Session;
 import com.example.manajeroback.repositories.IssuesRepository;
 import com.example.manajeroback.repositories.SessionRepository;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.HeaderColumnNameMappingStrategy;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -22,9 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
 
 @Service
 @AllArgsConstructor
@@ -118,11 +116,16 @@ public class IssuesServices {
 
     public void insertIssues1(List<IssuesRequest> newUserStories, String sessionId) {
         List<Issues> userstories = new ArrayList<>();
+        Session session = sessionRepo.findById(sessionId).orElseThrow(() -> new IllegalArgumentException("Invalid session ID"));
 
         for (var Issues : newUserStories) {
             var us = new Issues();
             us.setIssueDescription(Issues.getDescription());
-            // us.setSessionId(sessionId) ;
+            long count = issuesRepo.countBySessionId(sessionId); // Compte le nombre d'issues pour cette session
+            String issueNumber = PREFIX + (count + 1); // Générer le numéro d'issue
+
+            us.setIssueNumber(issueNumber); // // Générer le numéro d'issue
+            us.setSession(session);
             userstories.add(us);
         }
         issuesRepo.saveAll(userstories);

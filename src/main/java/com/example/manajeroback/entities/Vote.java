@@ -18,6 +18,8 @@ public class Vote {
     String sessionId;
     String issueId;
     String vote;
+    String userId;
 
-
+    public Vote(String number, String sessionId, String issueId, String number1) {
+    }
 }

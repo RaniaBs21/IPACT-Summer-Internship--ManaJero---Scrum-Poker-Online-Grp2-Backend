@@ -17,10 +17,8 @@ import java.util.Optional;
 public class UserService {
     SessionRepository sessionRepository;
     UserRepository userRepository;
-    public User addUserToSession(String sessionId, User user) {
-        Session session = sessionRepository.findById(sessionId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid session ID"));
-
+    public User addUser(String sessionId, User user) {
+        Session session = sessionRepository.findById(sessionId).orElseThrow(() -> new IllegalArgumentException("Invalid session ID"));
         user.setSession(session);
         return userRepository.save(user);
     }
@@ -32,5 +30,9 @@ public class UserService {
         }
         Session session = sessionOptional.get();
         return userRepository.findBySession(session);
+    }
+    public User getUserById(String userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
 }

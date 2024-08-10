@@ -8,5 +8,7 @@ import java.util.List;
 
 public interface UserRepository extends MongoRepository<User, String> {
     List<User> findBySession(Session session);
+    User findByEmail(String email);
+
 
 }
