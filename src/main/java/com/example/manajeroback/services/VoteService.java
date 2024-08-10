@@ -38,18 +38,61 @@ public class VoteService {
         int count = 0;
 
         for (Vote vote : votes) {
-            try {
-                double voteValue = Double.parseDouble(vote.getVote());
-                sum += voteValue;
-                count++;
-            } catch (NumberFormatException e) {
-                // Handle the case where the vote value is not a number
-                // For example, you might log this or ignore this vote
-                System.err.println("Invalid vote value: " + vote.getVote());
+            String voteValueStr = vote.getVote();
+
+            if (voteValueStr.equals("☕️") || voteValueStr.equals("☕")) {
+                continue; // Ignore coffee votes
             }
+
+            double voteValue;
+            try {
+                // Try to parse numeric value
+                voteValue = Double.parseDouble(voteValueStr);
+            } catch (NumberFormatException e) {
+                // If parsing fails, convert alphabetical votes to a numeric value
+                voteValue = convertAlphaVoteToNumeric(voteValueStr);
+            }
+
+            sum += voteValue;
+            count++;
         }
 
         return count == 0 ? 0.0 : sum / count;
     }
 
+    private double convertAlphaVoteToNumeric(String vote) {
+        switch (vote.toUpperCase()) {
+            case "XS":
+            case "0":
+                return 0;
+            case "S":
+            case "½":
+                return 0.5;
+            case "M":
+            case "1":
+                return 1;
+            case "L":
+            case "2":
+                return 2;
+            case "XL":
+            case "3":
+                return 3;
+            case "8":
+                return 8;
+            case "13":
+                return 13;
+            case "20":
+                return 20;
+            case "34":
+            case "40":
+                return 40;
+            case "55":
+            case "100":
+                return 100;
+            case "89":
+                return 89;
+            default:
+                return 0; // Default to 0 if vote is unrecognized
+        }
+    }
 }
