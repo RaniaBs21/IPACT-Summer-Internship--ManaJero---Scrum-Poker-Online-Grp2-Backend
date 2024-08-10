@@ -63,34 +63,20 @@ public class VoteService {
     private double convertAlphaVoteToNumeric(String vote) {
         switch (vote.toUpperCase()) {
             case "XS":
-            case "0":
-                return 0;
-            case "S":
-            case "½":
-                return 0.5;
-            case "M":
             case "1":
                 return 1;
-            case "L":
+            case "S":
             case "2":
                 return 2;
-            case "XL":
+            case "M":
             case "3":
                 return 3;
-            case "8":
-                return 8;
-            case "13":
-                return 13;
-            case "20":
-                return 20;
-            case "34":
-            case "40":
-                return 40;
-            case "55":
-            case "100":
-                return 100;
-            case "89":
-                return 89;
+            case "L":
+            case "4":
+                return 4;
+            case "XL":
+            case "5":
+                return 5;
             default:
                 return 0; // Default to 0 if vote is unrecognized
         }
