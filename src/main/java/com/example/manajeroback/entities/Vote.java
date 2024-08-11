@@ -16,13 +16,34 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Document(collection = "Vote")
 public class Vote implements Serializable {
-    @Id
+   /* @Id
     private String id;
     private String sessionId;
     private String issueId;
     private String userId;
     private String vote;
     public Vote(String id, String sessionId, String issueId, String vote) {
-    }
+    }*/
 
+    @Id
+    String id;
+    String sessionId;
+    String issueId;
+    String vote;
+    String userId; // Ajout de l'userId
+
+
+    @DBRef
+    User user;
+    @DBRef
+    Issues issue;
+    public Vote(String id, String sessionId, String issueId, String vote) {
+    }
+    public Vote(String id, String sessionId, String issueId, String vote, String userId) {
+        this.id = id;
+        this.sessionId = sessionId;
+        this.issueId = issueId;
+        this.vote = vote;
+        this.userId = userId;
+    }
 }

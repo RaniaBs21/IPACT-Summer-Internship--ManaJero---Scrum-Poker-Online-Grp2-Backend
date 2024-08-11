@@ -110,6 +110,7 @@
             <version>${opencsv.version}</version>
         </dependency>
 
+        <!-- Spring Boot Starter WebSocket -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
