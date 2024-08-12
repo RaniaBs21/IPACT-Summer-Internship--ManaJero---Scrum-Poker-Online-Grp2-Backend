@@ -43,6 +43,15 @@ public class VoteController {
         return ResponseEntity.ok(averageVote);
     }
 
+ /*@GetMapping("getaverage")
+ public ResponseEntity<?> calculateAverageVote(
+         @RequestParam String sessionId,
+         @RequestParam String issueId) {
+     Object result = voteService.calculateAverageVote(sessionId, issueId);
+     return ResponseEntity.ok(result);
+ }*/
+
+
     @PostMapping("/session/submitVote")
     public Vote submitVote(@RequestBody Vote vote) {
         User user = userRepository.findById(vote.getUserId())
