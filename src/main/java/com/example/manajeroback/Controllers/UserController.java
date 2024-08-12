@@ -31,6 +31,10 @@ public class UserController {
         User user = userService.getUserById(userId);
         return ResponseEntity.ok(user);
     }
-
+    @GetMapping("/{sessionId}/users/total")
+    public ResponseEntity<Long> countUsersInSession(@PathVariable String sessionId) {
+        long userCount = userService.countUsersInSession(sessionId);
+        return ResponseEntity.ok(userCount);
+    }
 
 }

@@ -4,6 +4,7 @@ import com.example.manajeroback.Models.IssuesRequest;
 import com.example.manajeroback.entities.Issues;
 import com.example.manajeroback.services.IssuesServices;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -58,6 +59,11 @@ public class IssuesController {
     @GetMapping("/{id}")
     public Issues getIssuesById(@PathVariable String id) {
         return issuesServices.getIssuesById(id);
+    }
+    @GetMapping("/{sessionId}/issues/total")
+    public ResponseEntity<Long> countUsersInSession(@PathVariable String sessionId) {
+        long userCount = issuesServices.countIsuuesInSession(sessionId);
+        return ResponseEntity.ok(userCount);
     }
 
 

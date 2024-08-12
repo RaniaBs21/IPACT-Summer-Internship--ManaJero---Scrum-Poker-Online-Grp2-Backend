@@ -128,4 +128,7 @@ public class IssuesServices {
         issuesRepo.saveAll(userstories);
     }
 
+    public long countIsuuesInSession(String sessionId) {
+        return issuesRepo.countBySessionId(sessionId);
+    }
 }

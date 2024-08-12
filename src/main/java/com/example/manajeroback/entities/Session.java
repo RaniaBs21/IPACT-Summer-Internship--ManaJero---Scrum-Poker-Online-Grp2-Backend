@@ -31,4 +31,6 @@ public class Session implements Serializable {
 
     @DBRef
     List<User> users;
+    // Nouveau champ pour indiquer si la session est fermée
+    boolean closed = false;
 }

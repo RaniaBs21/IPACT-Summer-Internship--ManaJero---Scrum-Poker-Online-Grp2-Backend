@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -77,4 +78,39 @@ public class SessionService {
         // Convert namePart to a readable format if necessary
         return namePart;
     }
+
+    // Méthode pour fermer une session
+   /* public void closeSession(String sessionId) {
+        // Récupérer la session
+        Optional<Session> optionalSession = sessionRepository.findById(sessionId);
+        if (optionalSession.isPresent()) {
+            Session session = optionalSession.get();
+            // Mettre à jour l'état de la session pour la marquer comme fermée
+            session.setClosed(true);
+            sessionRepository.save(session);
+        } else {
+            throw new RuntimeException("Session not found");
+        }
+    }*/
+
+    // Méthode pour fermer une session
+    public void closeSession(String sessionId) {
+        // Récupérer la session
+        Optional<Session> optionalSession = sessionRepository.findById(sessionId);
+        if (optionalSession.isPresent()) {
+            Session session = optionalSession.get();
+            // Mettre à jour l'état de la session pour la marquer comme fermée
+            session.setClosed(true);
+            sessionRepository.save(session);
+        } else {
+            throw new RuntimeException("Session not found");
+        }
+    }
+
+    // Méthode pour vérifier si une session est fermée
+    public boolean isSessionClosed(String sessionId) {
+        Optional<Session> optionalSession = sessionRepository.findById(sessionId);
+        return optionalSession.map(Session::isClosed).orElse(true); // Retourne true si la session n'existe pas ou est fermée
+    }
+
 }

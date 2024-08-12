@@ -38,4 +38,7 @@ public class UserService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
+    public long countUsersInSession(String sessionId) {
+        return userRepository.countBySessionId(sessionId);
+    }
 }

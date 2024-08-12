@@ -12,4 +12,6 @@ import java.util.List;
 public interface UserRepository extends MongoRepository<User, String> {
     List<User> findBySession(Session session);
     User findByEmail(String email);
+    // Méthode pour compter les utilisateurs d'une session donnée
+    long countBySessionId(String sessionId);
 }
