@@ -4,13 +4,16 @@ import com.example.manajeroback.entities.Session;
 import com.example.manajeroback.entities.User;
 import com.example.manajeroback.repositories.SessionRepository;
 import com.example.manajeroback.repositories.UserRepository;
+import com.example.manajeroback.repositories.VoteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -21,6 +24,7 @@ public class SessionService {
     SessionRepository sessionRepository ;
     UserRepository userRepository;
     EmailService emailService;
+    private VoteRepository voteRepository;
     public Session addSession(Session session) {
         return sessionRepository.save(session);
     }
@@ -111,6 +115,25 @@ public class SessionService {
     public boolean isSessionClosed(String sessionId) {
         Optional<Session> optionalSession = sessionRepository.findById(sessionId);
         return optionalSession.map(Session::isClosed).orElse(true); // Retourne true si la session n'existe pas ou est fermée
+    }
+
+    // Calculer le taux de participation
+    public double calculateParticipationRate(String sessionId) {
+        // Vérifiez si la session existe
+        Session session = sessionRepository.findById(sessionId)
+                .orElseThrow(() -> new EntityNotFoundException("Session with id " + sessionId + " not found"));
+
+        // Récupérez les utilisateurs associés à la session
+        List<User> users = userRepository.findBySessionId(sessionId);
+
+        // Calculez le nombre d'utilisateurs participant
+        int totalUsers = users.size();
+        int participatingUsers = (int) users.stream().filter(user -> !user.getVotes().isEmpty()).count();
+
+        // Évitez la division par zéro
+        if (totalUsers == 0) return 0.0;
+
+        return (double) participatingUsers / totalUsers * 100;
     }
 
 }

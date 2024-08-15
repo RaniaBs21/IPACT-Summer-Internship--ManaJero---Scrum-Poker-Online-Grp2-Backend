@@ -1,7 +1,9 @@
 package com.example.manajeroback.Controllers;
 
+import com.example.manajeroback.entities.Issues;
 import com.example.manajeroback.entities.User;
 import com.example.manajeroback.entities.Vote;
+import com.example.manajeroback.repositories.IssuesRepository;
 import com.example.manajeroback.repositories.UserRepository;
 import com.example.manajeroback.repositories.VoteRepository;
 import com.example.manajeroback.services.VoteService;
@@ -10,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/votes")
@@ -22,6 +26,8 @@ public class VoteController {
     private UserRepository userRepository;
     @Autowired
     private VoteRepository voteRepository;
+    @Autowired
+    private IssuesRepository issuesRepository;
 
     @PostMapping
     public ResponseEntity<Vote> addVote(@RequestBody Vote vote) {
@@ -67,4 +73,19 @@ public class VoteController {
     }
 
 
+    @GetMapping("/count/{issueId}")
+    public Long getVoteCount(@PathVariable String issueId) {
+        return voteService.getVoteCountByIssueId(issueId);
+    }
+
+    @GetMapping("/issue/{issueId}")
+    public List<Vote> getVotesByIssueId(@PathVariable String issueId) {
+        return voteService.getVotesByIssueId(issueId);
+    }
+
+    @GetMapping("/statistics")
+    public ResponseEntity<Map<String, Integer>> getCardUsageStatistics(@RequestParam String sessionId) {
+        Map<String, Integer> statistics = voteService.getCardUsageStatistics(sessionId);
+        return ResponseEntity.ok(statistics);
+    }
 }

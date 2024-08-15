@@ -14,4 +14,5 @@ public interface UserRepository extends MongoRepository<User, String> {
     User findByEmail(String email);
     // Méthode pour compter les utilisateurs d'une session donnée
     long countBySessionId(String sessionId);
+    List<User> findBySessionId(String sessionId);
 }
