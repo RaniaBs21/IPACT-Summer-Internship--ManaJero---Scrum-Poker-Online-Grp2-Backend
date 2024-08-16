@@ -23,8 +23,7 @@ public class VoteController {
     private UserRepository userRepository;
     @Autowired
     private VoteRepository voteRepository;
-    @Autowired
-    private IssuesRepository issuesRepository;
+
 
     @PostMapping
     public ResponseEntity<Vote> addVote(@RequestBody Vote vote) {

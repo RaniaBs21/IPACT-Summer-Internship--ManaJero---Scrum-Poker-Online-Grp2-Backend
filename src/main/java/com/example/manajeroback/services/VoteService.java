@@ -14,7 +14,6 @@ public class VoteService {
 
 
     private VoteRepository voteRepository;
-    private IssuesRepository issuesRepository;
 
     public Vote addVote(Vote vote) {
         return voteRepository.save(vote);
@@ -74,7 +73,7 @@ public class VoteService {
             case "5":
                 return 5;
             default:
-                return 0; // Default to 0 if vote is unrecognized
+                return 0;
         }
 
     }

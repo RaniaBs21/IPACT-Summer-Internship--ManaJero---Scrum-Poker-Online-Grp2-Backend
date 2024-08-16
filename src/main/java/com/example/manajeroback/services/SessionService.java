@@ -22,7 +22,6 @@ public class SessionService {
     SessionRepository sessionRepository ;
     UserRepository userRepository;
     EmailService emailService;
-    private VoteRepository voteRepository;
     public Session addSession(Session session) {
         return sessionRepository.save(session);
     }

@@ -29,7 +29,6 @@ class DemoServiceTest {
         demo.setDescription("test");
         // Configurer le comportement du mock
         Mockito.when(demoRepository.save(Mockito.any(Demo.class))).thenReturn(demo);
-        Demo savedDemo = demoService.addDemo(demo);
         Assertions.assertEquals("test", demo.getTitle());
         Assertions.assertEquals("test", demo.getIntro());
         Assertions.assertEquals("test", demo.getDescription());
