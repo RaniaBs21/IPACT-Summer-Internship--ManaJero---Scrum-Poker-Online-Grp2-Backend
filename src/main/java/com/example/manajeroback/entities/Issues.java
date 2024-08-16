@@ -1,5 +1,6 @@
 package com.example.manajeroback.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -8,6 +9,8 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.List;
+
 @Builder
 @Getter
 @Setter
@@ -23,6 +26,9 @@ public class Issues  implements Serializable {
     String name;
     @DBRef
     Session session;
+    @JsonIgnore
+    @DBRef
+    List<Vote> votes;
 
 
     public Issues(String id, String issueDescription, String issueNumber, String name) {

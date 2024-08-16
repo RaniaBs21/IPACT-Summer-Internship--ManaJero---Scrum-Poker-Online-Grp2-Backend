@@ -1,7 +1,7 @@
 package com.example.manajeroback.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,26 +16,19 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "Session")
-public class Session implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    String id;
+@Document(collection = "User")
 
+public class User implements Serializable {
+    @Id
+    String id;
     String name;
-    @Enumerated(EnumType.STRING)
-    VotingSystem votingSystem=VotingSystem.FIBONACCI;
+    String email;
     @JsonIgnore
     @DBRef
-    List<Issues> issues;
-
+    Session session;
+    @JsonIgnore
     @DBRef
-    List<User> users;
-    // Nouveau champ pour indiquer si la session est fermée
-    boolean closed = false;
+    List<Vote> votes;
 
-    public Session(String s, VotingSystem votingSystem) {
-        this.name=s;
-        this.votingSystem=votingSystem;
-    }
+
 }

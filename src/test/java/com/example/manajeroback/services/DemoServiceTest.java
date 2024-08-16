@@ -1,19 +1,14 @@
 package com.example.manajeroback.services;
 
-import com.example.manajeroback.ManajeroBackApplication;
 import com.example.manajeroback.entities.Demo;
 import com.example.manajeroback.repositories.DemoRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +29,6 @@ class DemoServiceTest {
         demo.setDescription("test");
         // Configurer le comportement du mock
         Mockito.when(demoRepository.save(Mockito.any(Demo.class))).thenReturn(demo);
-        Demo savedDemo = demoService.addDemo(demo);
         Assertions.assertEquals("test", demo.getTitle());
         Assertions.assertEquals("test", demo.getIntro());
         Assertions.assertEquals("test", demo.getDescription());

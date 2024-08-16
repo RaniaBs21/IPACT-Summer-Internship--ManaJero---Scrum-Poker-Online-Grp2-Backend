@@ -33,10 +33,17 @@ public class IssuesServices {
 
     IssuesRepository issuesRepo;
     SessionRepository sessionRepo;
-    public Issues addIssues(Issues issues) {
-        return issuesRepo.save(issues);
-    }
 
+    public Issues addIssue(String sessionId, Issues issue) {
+        Session session = sessionRepo.findById(sessionId).orElseThrow(() -> new IllegalArgumentException("Invalid session ID"));
+        // Générer un numéro d'issue
+        long count = issuesRepo.countBySessionId(sessionId); // Compte le nombre d'issues pour cette session
+        String issueNumber = PREFIX + (count + 1); // Générer le numéro d'issue
+
+        issue.setIssueNumber(issueNumber); // Définir le numéro d'issue
+        issue.setSession(session);
+        return issuesRepo.save(issue);
+    }
     public List<Issues> getAllIssues() {
         return issuesRepo.findAll();
     }
@@ -55,16 +62,7 @@ public class IssuesServices {
     public List<Issues> getIssuesBySessionId(String sessionId) {
         return issuesRepo.findBySessionId(sessionId);
     }
-    public Issues addIssue(String sessionId, Issues issue) {
-        Session session = sessionRepo.findById(sessionId).orElseThrow(() -> new IllegalArgumentException("Invalid session ID"));
-        // Générer un numéro d'issue
-        long count = issuesRepo.countBySessionId(sessionId); // Compte le nombre d'issues pour cette session
-        String issueNumber = PREFIX + (count + 1); // Générer le numéro d'issue
 
-        issue.setIssueNumber(issueNumber); // Définir le numéro d'issue
-        issue.setSession(session);
-        return issuesRepo.save(issue);
-    }
 
 
 // *******************************   user stories **************************************
@@ -111,10 +109,7 @@ public class IssuesServices {
         }
     }
 
-    //import Issues from jira to db
-    public List<Issues> findBySessionId(String sessionId) {
-        return issuesRepo.findBySessionId(sessionId);
-    }
+
 
     public void insertIssues1(List<IssuesRequest> newUserStories, String sessionId) {
         List<Issues> userstories = new ArrayList<>();
@@ -128,4 +123,7 @@ public class IssuesServices {
         issuesRepo.saveAll(userstories);
     }
 
+    public long countIsuuesInSession(String sessionId) {
+        return issuesRepo.countBySessionId(sessionId);
+    }
 }

@@ -9,4 +9,8 @@ import java.util.List;
 @Repository
 public interface VoteRepository extends MongoRepository<Vote, String> {
     List<Vote> findBySessionIdAndIssueId(String sessionId, String issueId);
+    List<Vote> findByIssueId(String issueId);
+    List<Vote> findBySessionId(String sessionId);
+
+
 }

@@ -38,10 +38,11 @@ class VoteServiceTest {
     void getVotesBySessionAndIssueTest() {
         String sessionId = "session1";
         String issueId = "issue1";
+        String userId = "user1";
 
         List<Vote> votes = new ArrayList<>();
-        votes.add(new Vote("1", sessionId, issueId, "5"));
-        votes.add(new Vote("2", sessionId, issueId, "3"));
+        votes.add(new Vote("1", sessionId, issueId, "5", userId));
+        votes.add(new Vote("2", sessionId, issueId, "3",userId));
 
         Mockito.when(voteRepository.findBySessionIdAndIssueId(sessionId, issueId)).thenReturn(votes);
 
