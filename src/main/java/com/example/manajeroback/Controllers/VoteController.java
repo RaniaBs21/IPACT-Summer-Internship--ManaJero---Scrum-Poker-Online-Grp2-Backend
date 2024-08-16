@@ -88,4 +88,14 @@ public class VoteController {
         Map<String, Integer> statistics = voteService.getCardUsageStatistics(sessionId);
         return ResponseEntity.ok(statistics);
     }
+    @GetMapping("/sessions/{sessionId}/vote-frequency")
+    public ResponseEntity<Map<String, Integer>> getVoteFrequencyForSession(@PathVariable String sessionId) {
+        Map<String, Integer> frequencyMap = voteService.calculateVoteFrequencyForSession(sessionId);
+        return ResponseEntity.ok(frequencyMap);
+    }
+
+    @GetMapping("/sessions/{sessionId}/vote-distribution")
+    public Map<String, Object> getVoteDistribution(@PathVariable String sessionId) {
+        return voteService.getVoteDistribution(sessionId);
+    }
 }

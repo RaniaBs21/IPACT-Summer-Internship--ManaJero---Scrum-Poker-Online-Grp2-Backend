@@ -102,4 +102,40 @@ public class VoteService {
 
         return cardUsage;
     }
+
+    public Map<String, Integer> calculateVoteFrequencyForSession(String sessionId) {
+        List<Vote> votes = voteRepository.findBySessionId(sessionId);
+        Map<String, Integer> frequencyMap = new HashMap<>();
+
+        for (Vote vote : votes) {
+            String voteValue = vote.getVote();
+            frequencyMap.put(voteValue, frequencyMap.getOrDefault(voteValue, 0) + 1);
+        }
+
+        return frequencyMap;
+    }
+
+    public Map<String, Object> getVoteDistribution(String sessionId) {
+        List<Vote> votes = voteRepository.findBySessionId(sessionId);
+        Map<String, Integer> frequencyMap = new HashMap<>();
+
+        // Calculer la fréquence des votes
+        for (Vote vote : votes) {
+            String voteValue = vote.getVote();
+            frequencyMap.put(voteValue, frequencyMap.getOrDefault(voteValue, 0) + 1);
+        }
+
+        // Calculer le total des votes
+        int totalVotes = votes.size();
+
+        // Calculer les pourcentages
+        Map<String, Object> result = new HashMap<>();
+        for (Map.Entry<String, Integer> entry : frequencyMap.entrySet()) {
+            String card = entry.getKey();
+            int count = entry.getValue();
+            double percentage = totalVotes > 0 ? (count / (double) totalVotes) * 100 : 0;
+            result.put(card, Map.of("count", count, "percentage", percentage));
+        }
+        return result;
+    }
 }
