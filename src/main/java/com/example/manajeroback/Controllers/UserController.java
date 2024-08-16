@@ -12,9 +12,6 @@ import java.util.List;
 public class UserController {
     UserService userService;
 
-
-
-
     @PostMapping("/session/addUser/{sessionId}")
     public User addIssue(@PathVariable String sessionId, @RequestBody User user) {
         return userService.addUser(sessionId, user);

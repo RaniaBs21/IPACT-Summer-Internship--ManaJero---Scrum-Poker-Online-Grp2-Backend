@@ -3,14 +3,12 @@ package com.example.manajeroback.Controllers;
 import com.example.manajeroback.entities.Session;
 import com.example.manajeroback.services.ApiResponse;
 import com.example.manajeroback.services.SessionService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @AllArgsConstructor
@@ -47,43 +45,22 @@ public class SessionController {
         sessionService.inviteUserToSession(sessionId, email);
         return ResponseEntity.ok("Invitation sent to " + email);
     }
- /*   @PostMapping("/close/{id}")
-    public ResponseEntity<ApiResponse> closeSession(@PathVariable String id) {
-        try {
-            sessionService.closeSession(id);
-            return ResponseEntity.ok(new ApiResponse("Session closed successfully"));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage()));
-        }
-    }*/
- @PostMapping("/close/{id}")
- public ResponseEntity<ApiResponse> closeSession(@PathVariable String id) {
-     try {
-         sessionService.closeSession(id);
-         return ResponseEntity.ok(new ApiResponse("Session closed successfully"));
-     } catch (RuntimeException e) {
-         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage()));
+
+     @PostMapping("/close/{id}")
+     public ResponseEntity<ApiResponse> closeSession(@PathVariable String id) {
+         try {
+             sessionService.closeSession(id);
+             return ResponseEntity.ok(new ApiResponse("Session closed successfully"));
+         } catch (RuntimeException e) {
+             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage()));
+         }
      }
- }
 
-    @GetMapping("/status/{id}")
-    public ResponseEntity<ApiResponse> getSessionStatus(@PathVariable String id) {
-        boolean closed = sessionService.isSessionClosed(id);
-        return ResponseEntity.ok(new ApiResponse(closed ? "Session is closed" : "Session is open"));
-    }
-
-    // calculer le taux de participation
-    @GetMapping("/{sessionId}/participation-rate")
-    public ResponseEntity<?> getParticipationRate(@PathVariable String sessionId) {
-        try {
-            double participationRate = sessionService.calculateParticipationRate(sessionId);
-            return ResponseEntity.ok(participationRate);
-        } catch (EntityNotFoundException e) {
-            // Gestion spécifique pour les sessions non trouvées
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Session with id " + sessionId + " not found.");
-        } catch (Exception e) {
-            // Gestion générique des erreurs
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
+        @GetMapping("/status/{id}")
+        public ResponseEntity<ApiResponse> getSessionStatus(@PathVariable String id) {
+            boolean closed = sessionService.isSessionClosed(id);
+            return ResponseEntity.ok(new ApiResponse(closed ? "Session is closed" : "Session is open"));
         }
-    }
+
+
 }

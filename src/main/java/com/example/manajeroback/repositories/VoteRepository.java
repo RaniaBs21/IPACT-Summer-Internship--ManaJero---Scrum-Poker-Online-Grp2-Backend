@@ -2,7 +2,6 @@ package com.example.manajeroback.repositories;
 
 import com.example.manajeroback.entities.Vote;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

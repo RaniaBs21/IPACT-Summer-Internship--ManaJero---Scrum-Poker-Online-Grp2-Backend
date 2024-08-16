@@ -1,9 +1,6 @@
 package com.example.manajeroback.services;
 
-import com.example.manajeroback.entities.Demo;
 import com.example.manajeroback.entities.Diagram;
-import com.example.manajeroback.entities.Steps;
-import com.example.manajeroback.repositories.DemoRepository;
 import com.example.manajeroback.repositories.DiagramRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,7 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class DiagramServiceTest {
 

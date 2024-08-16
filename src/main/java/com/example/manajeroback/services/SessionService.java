@@ -11,9 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -83,19 +81,7 @@ public class SessionService {
         return namePart;
     }
 
-    // Méthode pour fermer une session
-   /* public void closeSession(String sessionId) {
-        // Récupérer la session
-        Optional<Session> optionalSession = sessionRepository.findById(sessionId);
-        if (optionalSession.isPresent()) {
-            Session session = optionalSession.get();
-            // Mettre à jour l'état de la session pour la marquer comme fermée
-            session.setClosed(true);
-            sessionRepository.save(session);
-        } else {
-            throw new RuntimeException("Session not found");
-        }
-    }*/
+
 
     // Méthode pour fermer une session
     public void closeSession(String sessionId) {
@@ -117,23 +103,6 @@ public class SessionService {
         return optionalSession.map(Session::isClosed).orElse(true); // Retourne true si la session n'existe pas ou est fermée
     }
 
-    // Calculer le taux de participation
-    public double calculateParticipationRate(String sessionId) {
-        // Vérifiez si la session existe
-        Session session = sessionRepository.findById(sessionId)
-                .orElseThrow(() -> new EntityNotFoundException("Session with id " + sessionId + " not found"));
 
-        // Récupérez les utilisateurs associés à la session
-        List<User> users = userRepository.findBySessionId(sessionId);
-
-        // Calculez le nombre d'utilisateurs participant
-        int totalUsers = users.size();
-        int participatingUsers = (int) users.stream().filter(user -> !user.getVotes().isEmpty()).count();
-
-        // Évitez la division par zéro
-        if (totalUsers == 0) return 0.0;
-
-        return (double) participatingUsers / totalUsers * 100;
-    }
 
 }

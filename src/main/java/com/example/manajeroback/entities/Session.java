@@ -33,4 +33,9 @@ public class Session implements Serializable {
     List<User> users;
     // Nouveau champ pour indiquer si la session est fermée
     boolean closed = false;
+
+    public Session(String s, VotingSystem votingSystem) {
+        this.name=s;
+        this.votingSystem=votingSystem;
+    }
 }

@@ -1,17 +1,12 @@
 package com.example.manajeroback.services;
 
-import com.example.manajeroback.entities.Issues;
 import com.example.manajeroback.entities.Vote;
 import com.example.manajeroback.repositories.IssuesRepository;
 import com.example.manajeroback.repositories.VoteRepository;
-import com.mongodb.DBObject;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -90,17 +85,6 @@ public class VoteService {
     }
     public List<Vote> getVotesByIssueId(String issueId) {
         return voteRepository.findByIssueId(issueId);
-    }
-
-    public Map<String, Integer> getCardUsageStatistics(String sessionId) {
-        List<Vote> votes = voteRepository.findBySessionId(sessionId);
-        Map<String, Integer> cardUsage = new HashMap<>();
-
-        for (Vote vote : votes) {
-            cardUsage.put(vote.getVote(), cardUsage.getOrDefault(vote.getVote(), 0) + 1);
-        }
-
-        return cardUsage;
     }
 
     public Map<String, Integer> calculateVoteFrequencyForSession(String sessionId) {

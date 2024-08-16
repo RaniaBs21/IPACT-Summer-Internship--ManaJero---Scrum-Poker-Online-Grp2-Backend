@@ -1,18 +1,15 @@
 package com.example.manajeroback.Controllers;
 
-import com.example.manajeroback.entities.Issues;
 import com.example.manajeroback.entities.User;
 import com.example.manajeroback.entities.Vote;
 import com.example.manajeroback.repositories.IssuesRepository;
 import com.example.manajeroback.repositories.UserRepository;
 import com.example.manajeroback.repositories.VoteRepository;
 import com.example.manajeroback.services.VoteService;
-import com.mongodb.DBObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,14 +46,6 @@ public class VoteController {
         return ResponseEntity.ok(averageVote);
     }
 
- /*@GetMapping("getaverage")
- public ResponseEntity<?> calculateAverageVote(
-         @RequestParam String sessionId,
-         @RequestParam String issueId) {
-     Object result = voteService.calculateAverageVote(sessionId, issueId);
-     return ResponseEntity.ok(result);
- }*/
-
 
     @PostMapping("/session/submitVote")
     public Vote submitVote(@RequestBody Vote vote) {
@@ -83,11 +72,6 @@ public class VoteController {
         return voteService.getVotesByIssueId(issueId);
     }
 
-    @GetMapping("/statistics")
-    public ResponseEntity<Map<String, Integer>> getCardUsageStatistics(@RequestParam String sessionId) {
-        Map<String, Integer> statistics = voteService.getCardUsageStatistics(sessionId);
-        return ResponseEntity.ok(statistics);
-    }
     @GetMapping("/sessions/{sessionId}/vote-frequency")
     public ResponseEntity<Map<String, Integer>> getVoteFrequencyForSession(@PathVariable String sessionId) {
         Map<String, Integer> frequencyMap = voteService.calculateVoteFrequencyForSession(sessionId);
