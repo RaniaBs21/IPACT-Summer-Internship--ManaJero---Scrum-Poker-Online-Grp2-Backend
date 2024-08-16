@@ -46,21 +46,21 @@ public class SessionController {
         return ResponseEntity.ok("Invitation sent to " + email);
     }
 
-     @PostMapping("/close/{id}")
-     public ResponseEntity<ApiResponse> closeSession(@PathVariable String id) {
-         try {
-             sessionService.closeSession(id);
-             return ResponseEntity.ok(new ApiResponse("Session closed successfully"));
-         } catch (RuntimeException e) {
-             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage()));
-         }
-     }
-
-        @GetMapping("/status/{id}")
-        public ResponseEntity<ApiResponse> getSessionStatus(@PathVariable String id) {
-            boolean closed = sessionService.isSessionClosed(id);
-            return ResponseEntity.ok(new ApiResponse(closed ? "Session is closed" : "Session is open"));
+    @PostMapping("/close/{id}")
+    public ResponseEntity<ApiResponse> closeSession(@PathVariable String id) {
+        try {
+            sessionService.closeSession(id);
+            return ResponseEntity.ok(new ApiResponse("Session closed successfully"));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage()));
         }
+    }
+
+    @GetMapping("/status/{id}")
+    public ResponseEntity<ApiResponse> getSessionStatus(@PathVariable String id) {
+        boolean closed = sessionService.isSessionClosed(id);
+        return ResponseEntity.ok(new ApiResponse(closed ? "Session is closed" : "Session is open"));
+    }
 
 
 }
