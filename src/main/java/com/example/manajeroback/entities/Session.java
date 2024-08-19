@@ -30,7 +30,7 @@ public class Session implements Serializable {
     @JsonIgnore
     @DBRef
     List<Issues> issues;
-
+    boolean closed = false;
     public Session(String s, VotingSystem votingSystem) {
         this.name=s;
         this.votingSystem=votingSystem;
