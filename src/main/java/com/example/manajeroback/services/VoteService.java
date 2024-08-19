@@ -3,71 +3,123 @@ package com.example.manajeroback.services;
 import com.example.manajeroback.entities.Vote;
 import com.example.manajeroback.repositories.VoteRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class VoteService {
 
+        private VoteRepository voteRepository;
 
-    @Autowired
-    private VoteRepository voteRepository;
-
-    public Vote addVote(Vote vote) {
-        return voteRepository.save(vote);
-    }
-    public List<Vote> getVotesBySessionAndIssue(String sessionId, String issueId) {
-        return voteRepository.findBySessionIdAndIssueId(sessionId, issueId);
-    }
-    public double calculateAverageVote(String sessionId, String issueId) {
-        List<Vote> votes = voteRepository.findBySessionIdAndIssueId(sessionId, issueId);
-        if (votes.isEmpty()) {
-            return 0.0;
+        public Vote addVote(Vote vote) {
+            return voteRepository.save(vote);
         }
 
-        double sum = 0.0;
-        int count = 0;
+        public List<Vote> getVotesBySessionAndIssue(String sessionId, String issueId) {
+            return voteRepository.findBySessionIdAndIssueId(sessionId, issueId);
+        }
 
-        for (Vote vote : votes) {
-            try {
-                double voteValue = Double.parseDouble(vote.getVote());
+        public double calculateAverageVote(String sessionId, String issueId) {
+            List<Vote> votes = voteRepository.findBySessionIdAndIssueId(sessionId, issueId);
+            if (votes.isEmpty()) {
+                return 0.0;
+            }
+
+            double sum = 0.0;
+            int count = 0;
+
+            for (Vote vote : votes) {
+                String voteValueStr = vote.getVote();
+
+                if (voteValueStr.equals("☕️") || voteValueStr.equals("☕")) {
+                    continue; // Ignore coffee votes
+                }
+
+                double voteValue;
+                try {
+                    // Try to parse numeric value
+                    voteValue = Double.parseDouble(voteValueStr);
+                } catch (NumberFormatException e) {
+                    // If parsing fails, convert alphabetical votes to a numeric value
+                    voteValue = convertAlphaVoteToNumeric(voteValueStr);
+                }
+
                 sum += voteValue;
                 count++;
-            } catch (NumberFormatException e) {
-                // Handle the case where the vote value is not a number
-                // For example, you might log this or ignore this vote
-                System.err.println("Invalid vote value: " + vote.getVote());
             }
+
+            return count == 0 ? 0.0 : sum / count;
         }
 
-        return count == 0 ? 0.0 : sum / count;
-    }
-    public long getNumberOfUsersInSession(String sessionId) {
-        return voteRepository.findBySessionId(sessionId)
-                .stream()
-                .map(Vote::getUserId)
-                .distinct()
-                .count();
-    }
-    public Map<String, Long> getPlayerPerformance(String sessionId) {
-        return voteRepository.findBySessionId(sessionId)
-                .stream()
-                .collect(Collectors.groupingBy(Vote::getUserId, Collectors.counting()));
-    }
+        private double convertAlphaVoteToNumeric(String vote) {
+            switch (vote.toUpperCase()) {
+                case "XS":
+                case "1":
+                    return 1;
+                case "S":
+                case "2":
+                    return 2;
+                case "M":
+                case "3":
+                    return 3;
+                case "L":
+                case "4":
+                    return 4;
+                case "XL":
+                case "5":
+                    return 5;
+                default:
+                    return 0;
+            }
 
-    public Map<String, Long> getEstimationClassification(String sessionId) {
-        return voteRepository.findBySessionId(sessionId)
-                .stream()
-                .collect(Collectors.groupingBy(Vote::getVote, Collectors.counting()));
-    }
-    public long countUsersBySessionId(String sessionId) {
-        return voteRepository.countBySessionId(sessionId);
-    }
+        }
 
+        public Long getVoteCountByIssueId(String issueId) {
+            List<Vote> votes = voteRepository.findByIssueId(issueId);
+            return (long) votes.size();
+        }
 
-}
+        public List<Vote> getVotesByIssueId(String issueId) {
+            return voteRepository.findByIssueId(issueId);
+        }
+
+        public Map<String, Integer> calculateVoteFrequencyForSession(String sessionId) {
+            List<Vote> votes = voteRepository.findBySessionId(sessionId);
+            Map<String, Integer> frequencyMap = new HashMap<>();
+
+            for (Vote vote : votes) {
+                String voteValue = vote.getVote();
+                frequencyMap.put(voteValue, frequencyMap.getOrDefault(voteValue, 0) + 1);
+            }
+
+            return frequencyMap;
+        }
+
+        public Map<String, Object> getVoteDistribution(String sessionId) {
+            List<Vote> votes = voteRepository.findBySessionId(sessionId);
+            Map<String, Integer> frequencyMap = new HashMap<>();
+
+            // Calculer la fréquence des votes
+            for (Vote vote : votes) {
+                String voteValue = vote.getVote();
+                frequencyMap.put(voteValue, frequencyMap.getOrDefault(voteValue, 0) + 1);
+            }
+
+            // Calculer le total des votes
+            int totalVotes = votes.size();
+
+            // Calculer les pourcentages
+            Map<String, Object> result = new HashMap<>();
+            for (Map.Entry<String, Integer> entry : frequencyMap.entrySet()) {
+                String card = entry.getKey();
+                int count = entry.getValue();
+                double percentage = totalVotes > 0 ? (count / (double) totalVotes) * 100 : 0;
+                result.put(card, Map.of("count", count, "percentage", percentage));
+            }
+            return result;
+        }
+    }

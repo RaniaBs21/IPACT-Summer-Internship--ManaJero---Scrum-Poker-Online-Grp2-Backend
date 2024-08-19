@@ -60,33 +60,24 @@ public class VoteController {
         newVote.setUserName(user.getName());
         return voteRepository.save(newVote);
     }
-    @GetMapping("/users-in-session/{sessionId}")
-    public long getNumberOfUsersInSession(@PathVariable String sessionId) {
-        return voteService.getNumberOfUsersInSession(sessionId);
+    @GetMapping("/count/{issueId}")
+    public Long getVoteCount(@PathVariable String issueId) {
+        return voteService.getVoteCountByIssueId(issueId);
     }
 
-    @GetMapping("/player-performance/{sessionId}")
-    public Map<String, Long> getPlayerPerformance(@PathVariable String sessionId) {
-        return voteService.getPlayerPerformance(sessionId);
+    @GetMapping("/issue/{issueId}")
+    public List<Vote> getVotesByIssueId(@PathVariable String issueId) {
+        return voteService.getVotesByIssueId(issueId);
     }
 
-    @GetMapping("/estimation-classification/{sessionId}")
-    public Map<String, Long> getEstimationClassification(@PathVariable String sessionId) {
-        return voteService.getEstimationClassification(sessionId);
+    @GetMapping("/sessions/{sessionId}/vote-frequency")
+    public ResponseEntity<Map<String, Integer>> getVoteFrequencyForSession(@PathVariable String sessionId) {
+        Map<String, Integer> frequencyMap = voteService.calculateVoteFrequencyForSession(sessionId);
+        return ResponseEntity.ok(frequencyMap);
     }
-    @GetMapping("/api/statistics/{sessionId}")
-    public Map<String, Object> getStatistics(@PathVariable String sessionId) {
-        long numberOfUsers = voteService.countUsersBySessionId(sessionId);
-        Map<String, Long> playerPerformance = voteService.getPlayerPerformance(sessionId);
-        Map<String, Long> estimationClassification = voteService.getEstimationClassification(sessionId);
-        return Map.of(
-                "numberOfUsers", numberOfUsers,
-                "playerPerformance", playerPerformance,
-                "estimationClassification", estimationClassification
-        );
-    }
-    @GetMapping("/api/session/{sessionId}/userCount")
-    public long getUserCount(@PathVariable String sessionId) {
-        return voteService.countUsersBySessionId(sessionId);
+
+    @GetMapping("/sessions/{sessionId}/vote-distribution")
+    public Map<String, Object> getVoteDistribution(@PathVariable String sessionId) {
+        return voteService.getVoteDistribution(sessionId);
     }
 }
