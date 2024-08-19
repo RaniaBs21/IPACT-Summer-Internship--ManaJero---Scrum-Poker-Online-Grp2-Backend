@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -44,6 +46,27 @@ public class VoteService {
         }
 
         return count == 0 ? 0.0 : sum / count;
+    }
+    public long getNumberOfUsersInSession(String sessionId) {
+        return voteRepository.findBySessionId(sessionId)
+                .stream()
+                .map(Vote::getUserId)
+                .distinct()
+                .count();
+    }
+    public Map<String, Long> getPlayerPerformance(String sessionId) {
+        return voteRepository.findBySessionId(sessionId)
+                .stream()
+                .collect(Collectors.groupingBy(Vote::getUserId, Collectors.counting()));
+    }
+
+    public Map<String, Long> getEstimationClassification(String sessionId) {
+        return voteRepository.findBySessionId(sessionId)
+                .stream()
+                .collect(Collectors.groupingBy(Vote::getVote, Collectors.counting()));
+    }
+    public long countUsersBySessionId(String sessionId) {
+        return voteRepository.countBySessionId(sessionId);
     }
 
 

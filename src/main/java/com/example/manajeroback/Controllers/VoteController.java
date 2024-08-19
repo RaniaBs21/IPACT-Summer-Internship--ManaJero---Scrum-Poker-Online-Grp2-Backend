@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/votes")
@@ -51,15 +52,41 @@ public class VoteController {
     public Vote submitVote(@RequestBody Vote vote) {
         User user = userRepository.findById(vote.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        // Create and set up the new vote
         Vote newVote = new Vote();
         newVote.setSessionId(vote.getSessionId());
         newVote.setIssueId(vote.getIssueId());
         newVote.setVote(vote.getVote());
         newVote.setUserId(user.getId());
         newVote.setUserName(user.getName());
-
-        // Save and return the new vote
         return voteRepository.save(newVote);
+    }
+    @GetMapping("/users-in-session/{sessionId}")
+    public long getNumberOfUsersInSession(@PathVariable String sessionId) {
+        return voteService.getNumberOfUsersInSession(sessionId);
+    }
+
+    @GetMapping("/player-performance/{sessionId}")
+    public Map<String, Long> getPlayerPerformance(@PathVariable String sessionId) {
+        return voteService.getPlayerPerformance(sessionId);
+    }
+
+    @GetMapping("/estimation-classification/{sessionId}")
+    public Map<String, Long> getEstimationClassification(@PathVariable String sessionId) {
+        return voteService.getEstimationClassification(sessionId);
+    }
+    @GetMapping("/api/statistics/{sessionId}")
+    public Map<String, Object> getStatistics(@PathVariable String sessionId) {
+        long numberOfUsers = voteService.countUsersBySessionId(sessionId);
+        Map<String, Long> playerPerformance = voteService.getPlayerPerformance(sessionId);
+        Map<String, Long> estimationClassification = voteService.getEstimationClassification(sessionId);
+        return Map.of(
+                "numberOfUsers", numberOfUsers,
+                "playerPerformance", playerPerformance,
+                "estimationClassification", estimationClassification
+        );
+    }
+    @GetMapping("/api/session/{sessionId}/userCount")
+    public long getUserCount(@PathVariable String sessionId) {
+        return voteService.countUsersBySessionId(sessionId);
     }
 }
