@@ -31,9 +31,6 @@ public class IssuesServices {
 
     IssuesRepository issuesRepo;
     SessionRepository sessionRepo;
-    public Issues addIssues(Issues issues) {
-        return issuesRepo.save(issues);
-    }
 
     public List<Issues> getAllIssues() {
         return issuesRepo.findAll();
