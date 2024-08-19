@@ -6,7 +6,7 @@ import com.example.manajeroback.services.SessionService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.HttpStatus;
+
 import java.util.List;
 
 @RestController
@@ -44,15 +44,7 @@ public ResponseEntity<String> inviteUserToSession(@PathVariable String sessionId
     sessionService.inviteUserToSession(sessionId, email);
     return ResponseEntity.ok("Invitation sent to " + email);
 }
-    @PostMapping("/close/{id}")
-    public ResponseEntity<ApiResponse> closeSession(@PathVariable String id) {
-        try {
-            sessionService.closeSession(id);
-            return ResponseEntity.ok(new ApiResponse("Session closed successfully"));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage()));
-        }
-    }
+
 
     @GetMapping("/status/{id}")
     public ResponseEntity<ApiResponse> getSessionStatus(@PathVariable String id) {
