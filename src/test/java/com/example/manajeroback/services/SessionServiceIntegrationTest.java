@@ -1,6 +1,5 @@
 package com.example.manajeroback.services;
 
-import com.example.manajeroback.entities.Diagram;
 import com.example.manajeroback.entities.Session;
 import com.example.manajeroback.entities.VotingSystem;
 import com.example.manajeroback.repositories.SessionRepository;

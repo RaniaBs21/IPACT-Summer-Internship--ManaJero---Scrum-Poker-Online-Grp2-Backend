@@ -1,23 +1,16 @@
 package com.example.manajeroback.services;
 
-import com.example.manajeroback.entities.Demo;
 import com.example.manajeroback.entities.Diagram;
-import com.example.manajeroback.repositories.DemoRepository;
 import com.example.manajeroback.repositories.DiagramRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application.properties")
 class DiagramServiceIntegrationTest {
