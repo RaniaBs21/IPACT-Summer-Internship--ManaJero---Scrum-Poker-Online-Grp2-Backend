@@ -31,4 +31,12 @@ public class Vote implements Serializable {
         this.vote = vote;
 
     }
+
+    public Vote( String sessionId, String userId, String issueId, String vote) {
+        this.sessionId = sessionId;
+        this.issueId = issueId;
+        this.userId = userId;
+        this.vote = vote;
+
+    }
 }
