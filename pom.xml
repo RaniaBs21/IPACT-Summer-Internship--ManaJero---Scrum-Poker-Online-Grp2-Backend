@@ -36,6 +36,7 @@
     </properties>
     <dependencies>
 
+
         <!-- Dépendance pour Spring Data JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -110,11 +111,6 @@
             <version>${opencsv.version}</version>
         </dependency>
 
-        <!-- Spring Boot Starter WebSocket -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
